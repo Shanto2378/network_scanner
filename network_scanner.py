@@ -7,7 +7,10 @@ def scan(ip):
     arp_request = scapy.ARP(pdst = ip) # creating an ARP request object
     broadcast = scapy.Ether(dst = "ff:ff:ff:ff:ff:ff") # creating an Ether object
     arp_request_broadcast = broadcast/arp_request # combining the two objects
-    print(arp_request_broadcast.summary()) # printing the summary of the object
+    answered, unanswered = scapy.srp(arp_request_broadcast, timeout = 1) # sending the request and storing the answered and unanswered requests
+    print(answered.summary()) # printing the summary of the answered requests
+    
+
 
 
 scan("192.168.225.1/24") # calling the function with the ip address of the network

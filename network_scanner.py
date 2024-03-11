@@ -2,6 +2,13 @@
 
 import scapy.all as scapy  # in terminal run sudo su then in root terminal run scapy it will install scapy in root mode then the dependency error will be resolved
 # running scapy in root mode is not recommended but it is the only way to resolve the dependency error it will not fix anything on normal user mode please be aware of that fact.
+import argparse # importing the optparse module to parse the command line arguments
+
+def get_arguments():
+    parser = argparse.ArgumentParser() # creating an OptionParser object
+    parser.add_argument("-t", "--target", dest = "target", help = "target Ip / Ip Range") # adding an option to the object
+    options = parser.parse_args() # parsing the command line arguments
+    return options # returning the options
 
 def scan(ip):
     arp_request = scapy.ARP(pdst = ip) # creating an ARP request object
@@ -21,5 +28,6 @@ def print_result(results_list):
     for client in results_list:
         print(client["ip"] + "\t\t" + client["mac"]) # printing the IP and MAC addresses of the answered requests
  
-scan_result = scan("10.0.2.1/24") # calling the function with the ip address of the network which is "route -n" 
-print_result(scan_result)
+options = get_arguments() # getting the command line arguments
+scan_result = scan(options.target) # scanning the target IP / IP range
+print_result(scan_result) # printing the result

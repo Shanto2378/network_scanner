@@ -6,5 +6,4 @@ Using this code you can find the available devices that are connected in your ne
 # Example Code
 + sudo python3 network_scanner.py -t "ip range" 
 
-# Example Code
-+ sudo python3 mac_changer.py -i eth0 -m 00:11:22:44:55:69
+# Thank you.
